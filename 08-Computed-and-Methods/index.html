@@ -31,7 +31,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="{ title, isbn, author, publisher, price, numPages } of onlyOreileyBooks" :key="isbn">
           <tr v-for="{ title, isbn, author, publisher, price, numPages } of onlyOReileyBooks" :key="isbn">
             <td v-text="title" />
             <td v-text="isbn" />
