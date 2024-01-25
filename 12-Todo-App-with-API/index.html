@@ -3,37 +3,61 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
     <title>Todo App</title>
+    <link rel="stylesheet" href="https://unpkg.com/browse/normalize.css@7.0.0/normalize.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <section class="container">
-        <header id="heading">
-            <div id="item1">
-                <h1 class="heading-title">Just do it!</h1>
-            </div>
-        </header>
-        <main>
-            <div id="item2">
-                <label for="new-todo" id="form-lable"></label>
-                <input type="text" name="new-todo" id="new-todo" class="form-input" />
+    <div id="app"></div>
+    <header class="header">
+        <h1 class="header__title">Todo App</h1>
+    </header>
+    <main class="main">
+        <section class="todo-input">
+            <input class="todo-input__input" id="todo-input" type="text" placeholder="Get sh*t done!"
+                v-model="newTodo" @keyup.enter="addTodo" />
+            <button class="todo-input__button button" id="add-button" @click="addTodo">Add</button>
+        </section>
 
-                <br>
-                <button id="btn-add-todo" type="button">Add Todo</button>
-                <br>
-                <button id="btn-delete-todo" type="button">Delete Todo</button>
+        <section class="filter-and-options">
+            <h2>Filter & Options</h2>
+            <div class="radio-container" id="radio-container">
+                <input type="radio" name="filter" id="radio-all" value="all" class="radio-button"  v-model="currentFilter" checked />
+                <label for="radio-all">All</label>
+                <input type="radio" name="filter" id="radio-open" value="open" class="radio-button" v-model="currentFilter" />
+                <label for="radio-open">Open</label>
+                <input type="radio" name="filter" id="radio-done" value="done" class="radio-button" v-model="currentFilter" />
+                <label for="radio-done">Done</label>
+            </div>
+            <input >
+            <button class="button" id="delete-button" @click="removeTodo(index)">Remove Done Todos</button>
+        </section>
 
-            </div>
-            <div id="todo-content">
-                <span id="item3">
-                    <ul id="todos-list"></ul>
-                </span>
-            </div>
-        </main>
-    </section>
-    <script src="script.js" type="module"></script>
+        <section class="todos">
+            <h2>Your Todos</h2>
+            <ul class="todo-list" id="todo-list">
+                <li v-for="(todo, index) in filteredTodos" :key="index" class:="{completed: todo.done }" >{{todo.text}}</li>
+
+                <li class="todo-item">
+                    <input class="todo-item__checkbox" type="checkbox" name="" id="x" />
+                    <label class="todo-item__text" for="x">Learn HTML</label>
+                </li>
+                <li class="todo-item">
+                    <input class="todo-item__checkbox" type="checkbox" name="" id="y" />
+                    <label class="todo-item__text" for="y">Learn CSS</label>
+                </li>
+                <li class="todo-item">
+                    <input class="todo-item__checkbox" type="checkbox" name="" id="z" />
+                    <label class="todo-item__text" for="z">Learn JavaScript</label>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
